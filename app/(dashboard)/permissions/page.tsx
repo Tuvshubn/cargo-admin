@@ -52,7 +52,7 @@ export default function PermissionsPage() {
     } finally { setSaving(false); }
   };
 
-  if (loading) return <Box textAlign="center" py={8}><CircularProgress /></Box>;
+  if (loading) return <Box sx={{ textAlign: "center" }} py={8}><CircularProgress /></Box>;
 
   return (
     <Box>
