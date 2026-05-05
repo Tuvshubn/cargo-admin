@@ -51,7 +51,7 @@ export default function ReportsPage() {
         </Stack>
       </Stack>
 
-      {loading ? <Box sx={{ textAlign: "center" }} py={8}><CircularProgress /></Box> : (
+      {loading ? <Box sx={{ textAlign: "center" }} ><CircularProgress /></Box> : (
         <>
           {/* Summary Cards */}
           <Grid container spacing={2} mb={3}>

@@ -41,7 +41,7 @@ export default function DeliveriesPage() {
         </Stack>
       </Stack>
 
-      {loading ? <Box sx={{ textAlign: "center" }} py={8}><CircularProgress /></Box> : (
+      {loading ? <Box sx={{ textAlign: "center" }} ><CircularProgress /></Box> : (
         <>
           {pending.length === 0 && (
             <Alert severity="success" sx={{ mb: 2 }}>Хүргэх ачаа байхгүй байна 🎉</Alert>
