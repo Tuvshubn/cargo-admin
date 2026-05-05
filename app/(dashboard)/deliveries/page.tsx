@@ -97,7 +97,7 @@ export default function DeliveriesPage() {
           </Grid>
 
           {done.length > 0 && (
-            <Box mt={4}>
+            <Box sx={{ mt: 4 }}>
               <Typography variant="h6" fontWeight={700} mb={2} color="success.main">✅ Хүргэгдсэн ({done.length})</Typography>
               <Grid container spacing={2}>
                 {done.map((p: any) => (
