@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://cargo-backend-qk76v7t31-tuvshusoyl-8670s-projects.vercel.app/api';
 
-export const api = axios.create({ baseURL: API_URL });
+export const api = axios.create({
+  baseURL: API_URL,
+  withCredentials: false,
+  headers: { 'Content-Type': 'application/json' },
+  timeout: 15000,
+});
 
 api.interceptors.request.use(cfg => {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -28,17 +33,14 @@ export const STATUS_LABELS: Record<string, string> = {
   customs: 'Гааль', warehouse: 'Агуулах',
   delivering: 'Хүргэлтэнд', delivered: 'Хүргэгдсэн',
 };
-
 export const STATUS_COLORS: Record<string, string> = {
   incheon: '#64748b', tianjin: '#3b82f6', erlian: '#8b5cf6',
   zamiin_uud: '#f59e0b', customs: '#ef4444', warehouse: '#10b981',
   delivering: '#0ea5e9', delivered: '#22c55e',
 };
-
 export const CARGO_TYPE_LABELS: Record<string, string> = {
   express: 'Газрын экспресс', normal: 'Газрын энгийн',
   online: 'Онлайн', vehicle: 'Автомашин',
   oversized: 'Том оврын', wholesale: 'Бөөний',
 };
-
 export const STATUSES = Object.keys(STATUS_LABELS);
