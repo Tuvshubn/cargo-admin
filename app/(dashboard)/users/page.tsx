@@ -45,7 +45,7 @@ export default function UsersPage() {
     { field: 'name', headerName: 'Нэр', width: 160, renderCell: p => (
       <Stack direction="row" spacing={1.5} alignItems="center">
         <Avatar sx={{ width: 30, height: 30, fontSize: 12, bgcolor: 'primary.main' }}>{p.value[0]}</Avatar>
-        <Typography variant="body2" fontWeight={600}>{p.value}</Typography>
+        <Typography variant="body2" sx={{ fontWeight:600 }}>{p.value}</Typography>
       </Stack>
     )},
     { field: 'email', headerName: 'Имэйл', width: 200 },
@@ -74,7 +74,7 @@ export default function UsersPage() {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5" fontWeight={800}>Хэрэглэгчид</Typography>
+        <Typography variant="h5" sx={{ fontWeight:800 }}>Хэрэглэгчид</Typography>
         <Button variant="contained" startIcon={<Add />} onClick={() => { setForm(empty); setEditId(null); setDialog(true); }}>
           Нэмэх
         </Button>

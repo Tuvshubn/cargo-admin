@@ -28,7 +28,7 @@ export default function DashboardPage() {
   if (loading) return <Box sx={{ display:'flex', justifyContent:'center', mt:8 }}><CircularProgress/></Box>;
   if (user?.role !== 'admin') return (
     <Box sx={{ textAlign:'center', mt:8 }}>
-      <Typography variant="h5" fontWeight={700}>Тавтай морил, {user?.name}!</Typography>
+      <Typography variant="h5" sx={{ fontWeight:700 }}>Тавтай морил, {user?.name}!</Typography>
       <Typography color="text.secondary" sx={{ mt:1 }}>Зүүн цэснээс шаардлагатай хэсгээ сонгоно уу.</Typography>
     </Box>
   );
@@ -43,15 +43,15 @@ export default function DashboardPage() {
   ];
   return (
     <Box>
-      <Typography variant="h5" fontWeight={800} sx={{ mb:3 }}>Дашбоард</Typography>
+      <Typography variant="h5" sx={{ fontWeight:800, mb:3 }}>Дашбоард</Typography>
       <Grid container spacing={2.5} sx={{ mb:3 }}>
         {STATS.map((s,i) => (
           <Grid item xs={12} sm={6} lg={3} key={i}>
             <Card><CardContent sx={{ p:2.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                  <Typography variant="body2" color="text.secondary" fontWeight={600}>{s.label}</Typography>
-                  <Typography variant="h4" fontWeight={800} sx={{ mt:0.5 }}>{s.value}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight:600 }}>{s.label}</Typography>
+                  <Typography variant="h4" sx={{ fontWeight:800, mt:0.5 }}>{s.value}</Typography>
                   <Typography variant="caption" color="text.secondary">{s.sub}</Typography>
                 </Box>
                 <Avatar sx={{ bgcolor:s.color+'18', width:48, height:48 }}>
@@ -65,7 +65,7 @@ export default function DashboardPage() {
       <Grid container spacing={2.5}>
         <Grid item xs={12} lg={7}>
           <Card><CardContent>
-            <Typography fontWeight={700} sx={{ mb:2.5 }}>Сарын карго & орлого</Typography>
+            <Typography sx={{ fontWeight:700, mb:2.5 }}>Сарын карго & орлого</Typography>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={monthly}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)"/>
@@ -81,7 +81,7 @@ export default function DashboardPage() {
         </Grid>
         <Grid item xs={12} lg={5}>
           <Card><CardContent>
-            <Typography fontWeight={700} sx={{ mb:2.5 }}>Ачааны статусаар</Typography>
+            <Typography sx={{ fontWeight:700, mb:2.5 }}>Ачааны статусаар</Typography>
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
                 <Pie data={statusData} cx="50%" cy="50%" outerRadius={90} paddingAngle={3} dataKey="value">

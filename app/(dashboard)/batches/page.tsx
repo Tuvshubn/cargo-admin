@@ -61,7 +61,7 @@ export default function BatchesPage() {
   };
 
   const cols: GridColDef[] = [
-    { field: 'batch_code', headerName: 'Батч код', width: 140, renderCell: p => <Typography fontWeight={700} color="primary.main">{p.value}</Typography> },
+    { field: 'batch_code', headerName: 'Батч код', width: 140, renderCell: p => <Typography color="primary.main" sx={{ fontWeight:700 }}>{p.value}</Typography> },
     { field: 'name', headerName: 'Нэр', width: 160 },
     { field: 'departure_date', headerName: 'Хөдлөлтийн огноо', width: 140, renderCell: p => p.value ? new Date(p.value).toLocaleDateString('mn-MN') : '-' },
     { field: 'status', headerName: 'Статус', width: 160, renderCell: p => (
@@ -84,7 +84,7 @@ export default function BatchesPage() {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5" fontWeight={800}>Карго багцлах</Typography>
+        <Typography variant="h5" sx={{ fontWeight:800 }}>Карго багцлах</Typography>
         <Button variant="contained" startIcon={<Add />} onClick={() => { setSelected(null); setForm({ name:'', departure_date:'', driver_id:'', notes:'' }); setDialog(true); }}>
           Шинэ багц
         </Button>
@@ -129,7 +129,7 @@ export default function BatchesPage() {
           <Alert severity="info" sx={{ mb: 2 }}>
             Бүх ачааг шинэчлэхийн тулд сонголт хийхгүйгээр "Хадгалах" дарна. Зарим ачааг сонгоход зөвхөн сонгосон ачаанууд шинэчлэгдэнэ.
           </Alert>
-          <Typography variant="subtitle2" fontWeight={700} mb={1}>
+          <Typography variant="subtitle2" mb={1} sx={{ fontWeight:700 }}>
             Ачаанууд ({parcels.length}) — {selParcels.length ? `${selParcels.length} сонгогдсон` : 'бүгд'}
           </Typography>
           <Box sx={{ maxHeight: 300, overflow: 'auto', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
@@ -149,7 +149,7 @@ export default function BatchesPage() {
                     <TableCell padding="checkbox">
                       <Checkbox checked={selParcels.includes(p.id)} onChange={e => setSelParcels(prev => e.target.checked ? [...prev,p.id] : prev.filter(x=>x!==p.id))} />
                     </TableCell>
-                    <TableCell><Typography fontWeight={700} color="primary.main" variant="body2">{p.tracking_code}</Typography></TableCell>
+                    <TableCell><Typography color="primary.main" variant="body2" sx={{ fontWeight:700 }}>{p.tracking_code}</Typography></TableCell>
                     <TableCell>{p.mn_name}</TableCell><TableCell>{p.mn_phone}</TableCell>
                     <TableCell><Chip size="small" label={STATUS_LABELS[p.status]} sx={{ bgcolor: STATUS_COLORS[p.status]+'22', color: STATUS_COLORS[p.status] }} /></TableCell>
                   </TableRow>

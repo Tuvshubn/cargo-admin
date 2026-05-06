@@ -31,7 +31,7 @@ export default function DeliveriesPage() {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb:3 }}>
-        <Typography variant="h5" fontWeight={800}>Хүргэлт</Typography>
+        <Typography variant="h5" sx={{ fontWeight:800 }}>Хүргэлт</Typography>
         <Stack direction="row" spacing={1}>
           <Chip label={`Хүлээгдэж буй: ${pending.length}`} color="warning"/>
           <Chip label={`Хүргэгдсэн: ${done.length}`} color="success"/>
@@ -46,18 +46,18 @@ export default function DeliveriesPage() {
                 <Card sx={{ border:'2px solid', borderColor:'warning.light', height:'100%' }}>
                   <CardContent sx={{ p:2.5 }}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb:1.5 }}>
-                      <Typography fontWeight={800} color="primary.main">{p.tracking_code}</Typography>
+                      <Typography color="primary.main" sx={{ fontWeight:800 }}>{p.tracking_code}</Typography>
                       <Chip size="small" label={STATUS_LABELS[p.status]} sx={{ bgcolor:STATUS_COLORS[p.status]+'22', color:STATUS_COLORS[p.status] }}/>
                     </Stack>
                     <Divider sx={{ mb:1.5 }}/>
                     <Stack spacing={1}>
                       <Stack direction="row" spacing={1} alignItems="center">
                         <Avatar sx={{ width:24, height:24, fontSize:12 }}>{p.mn_name?.[0]}</Avatar>
-                        <Typography fontWeight={700}>{p.mn_name}</Typography>
+                        <Typography sx={{ fontWeight:700 }}>{p.mn_name}</Typography>
                       </Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Phone sx={{ fontSize:14, color:'text.secondary' }}/>
-                        <Typography variant="body2" color="primary.main" fontWeight={600}>{p.mn_phone}</Typography>
+                        <Typography variant="body2" color="primary.main" sx={{ fontWeight:600 }}>{p.mn_phone}</Typography>
                       </Stack>
                       {p.mn_address&&<Stack direction="row" spacing={0.5} alignItems="flex-start">
                         <LocationOn sx={{ fontSize:14, color:'text.secondary', mt:0.2 }}/>
@@ -65,7 +65,7 @@ export default function DeliveriesPage() {
                       </Stack>}
                       <Stack direction="row" justifyContent="space-between">
                         <Typography variant="caption" color="text.secondary">{p.quantity} ширхэг</Typography>
-                        {p.remaining_fee>0&&<Typography variant="caption" color="error.main" fontWeight={700}>Үлдэгдэл: {parseInt(String(p.remaining_fee)).toLocaleString()}₮</Typography>}
+                        {p.remaining_fee>0&&<Typography variant="caption" color="error.main" sx={{ fontWeight:700 }}>Үлдэгдэл: {parseInt(String(p.remaining_fee)).toLocaleString()}₮</Typography>}
                       </Stack>
                     </Stack>
                     <Button fullWidth variant="contained" color="success" size="small"
@@ -80,13 +80,13 @@ export default function DeliveriesPage() {
           </Grid>
           {done.length>0&&(
             <Box sx={{ mt:4 }}>
-              <Typography variant="h6" fontWeight={700} color="success.main" sx={{ mb:2 }}>✅ Хүргэгдсэн ({done.length})</Typography>
+              <Typography variant="h6" color="success.main" sx={{ fontWeight:700, mb:2 }}>✅ Хүргэгдсэн ({done.length})</Typography>
               <Grid container spacing={2}>
                 {done.map((p)=>(
                   <Grid item xs={12} sm={6} lg={4} key={p.id}>
                     <Card sx={{ opacity:0.7 }}><CardContent sx={{ p:2 }}>
                       <Stack direction="row" justifyContent="space-between">
-                        <Typography fontWeight={700} color="text.secondary">{p.tracking_code}</Typography>
+                        <Typography color="text.secondary" sx={{ fontWeight:700 }}>{p.tracking_code}</Typography>
                         <Chip size="small" label="Хүргэгдсэн" color="success"/>
                       </Stack>
                       <Typography variant="body2" sx={{ mt:1 }}>{p.mn_name} · {p.mn_phone}</Typography>

@@ -47,19 +47,19 @@ export default function PermissionsPage() {
   if(loading) return <Box sx={{ textAlign:'center', py:8 }}><CircularProgress/></Box>;
   return (
     <Box>
-      <Typography variant="h5" fontWeight={800} sx={{ mb:1 }}>Эрхийн тохиргоо</Typography>
+      <Typography variant="h5" sx={{ fontWeight:800, mb:1 }}>Эрхийн тохиргоо</Typography>
       <Alert severity="info" sx={{ mb:3 }}>Роль тус бүрт ямар цэс болон үйлдлийг зөвшөөрөхийг тохируулна уу</Alert>
       <Grid container spacing={3}>
         {ROLES.map(role=>(
           <Grid item xs={12} md={4} key={role}>
             <Card><CardContent>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb:2 }}>
-                <Typography fontWeight={800}>{ROLE_LABELS[role]}</Typography>
+                <Typography sx={{ fontWeight:800 }}>{ROLE_LABELS[role]}</Typography>
               </Stack>
               <Stack spacing={2}>
                 {Object.entries(ALL_PERMISSIONS).map(([group,items])=>(
                   <Box key={group}>
-                    <Typography variant="caption" fontWeight={700} color="text.secondary" sx={{ textTransform:'uppercase', letterSpacing:0.5 }}>{group}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight:700, textTransform:'uppercase', letterSpacing:0.5 }}>{group}</Typography>
                     <Stack spacing={0.5} sx={{ mt:0.5 }}>
                       {items.map(perm=>(
                         <Stack key={perm} direction="row" justifyContent="space-between" alignItems="center" sx={{ py:0.5, px:1, borderRadius:1, '&:hover':{ bgcolor:'action.hover' } }}>

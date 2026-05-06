@@ -65,13 +65,13 @@ export default function ParcelsPage() {
   };
 
   const columns: GridColDef[] = [
-    { field:'tracking_code', headerName:'Трекинг код', width:140, renderCell:p=><Typography variant="body2" fontWeight={700} color="primary.main">{p.value}</Typography> },
+    { field:'tracking_code', headerName:'Трекинг код', width:140, renderCell:p=><Typography variant="body2" color="primary.main" sx={{ fontWeight:700 }}>{p.value}</Typography> },
     { field:'mn_name', headerName:'Монгол нэр', width:130 },
     { field:'mn_phone', headerName:'Дугаар', width:110 },
     { field:'cargo_type', headerName:'Төрөл', width:130, renderCell:p=><Chip size="small" label={CARGO_TYPE_LABELS[p.value]||p.value}/> },
     { field:'quantity', headerName:'Тоо', width:60 },
     { field:'status', headerName:'Статус', width:150, renderCell:p=><Chip size="small" label={STATUS_LABELS[p.value]} sx={{ bgcolor:STATUS_COLORS[p.value]+'22', color:STATUS_COLORS[p.value], fontWeight:700, fontSize:11 }}/> },
-    { field:'remaining_fee', headerName:'Үлдэгдэл', width:110, renderCell:p=><Typography variant="body2" fontWeight={700} color={Number(p.value)>0?'error.main':'success.main'}>{parseInt(String(p.value||0)).toLocaleString()}₮</Typography> },
+    { field:'remaining_fee', headerName:'Үлдэгдэл', width:110, renderCell:p=><Typography variant="body2" sx={{ fontWeight:700 }} color={Number(p.value)>0?'error.main':'success.main'}>{parseInt(String(p.value||0)).toLocaleString()}₮</Typography> },
     { field:'is_paid', headerName:'Төлбөр', width:90, renderCell:p=><Chip size="small" label={p.value?'Төлсөн':'Хүлээгдэж'} color={p.value?'success':'warning'}/> },
     { field:'batch_code', headerName:'Багц', width:120 },
     { field:'created_at', headerName:'Огноо', width:100, renderCell:p=>new Date(p.value).toLocaleDateString('mn-MN') },
@@ -87,7 +87,7 @@ export default function ParcelsPage() {
   return (
     <Box>
       <Stack direction={{ xs:'column', sm:'row' }} justifyContent="space-between" alignItems={{ sm:'center' }} sx={{ mb:3 }} spacing={2}>
-        <Typography variant="h5" fontWeight={800}>Падан / Ачаанууд</Typography>
+        <Typography variant="h5" sx={{ fontWeight:800 }}>Падан / Ачаанууд</Typography>
         <Stack direction="row" spacing={1}>
           {user?.role==='admin'&&<Button variant="outlined" startIcon={exporting?<CircularProgress size={16}/>:<FileDownload/>} onClick={exportXlsx} disabled={exporting}>Excel</Button>}
           <Button variant="contained" startIcon={<Add/>} onClick={()=>{setForm(emptyForm);setEditId(null);setDialog(true);}}>Падан нэмэх</Button>
@@ -118,19 +118,19 @@ export default function ParcelsPage() {
         <DialogTitle fontWeight={800}>{editId?'Падан засах':'Шинэ падан нэмэх'}</DialogTitle>
         <DialogContent dividers>
           <Grid container spacing={2} sx={{ pt:1 }}>
-            <Grid item xs={12}><Typography variant="subtitle2" fontWeight={700} color="primary">🇰🇷 Солонгос мэдээлэл</Typography></Grid>
+            <Grid item xs={12}><Typography variant="subtitle2" color="primary" sx={{ fontWeight:700 }}>🇰🇷 Солонгос мэдээлэл</Typography></Grid>
             {([['kr_name','Нэр'],['kr_phone','Утасны дугаар'],['kr_address','Хаяг']] as [string,string][]).map(([k,l])=>(
               <Grid item xs={12} sm={4} key={k}>
                 <TextField fullWidth size="small" label={l} value={(form as Record<string,string>)[k]||''} onChange={e=>setForm(p=>({...p,[k]:e.target.value}))}/>
               </Grid>
             ))}
-            <Grid item xs={12}><Typography variant="subtitle2" fontWeight={700} color="error">🇲🇳 Монгол мэдээлэл</Typography></Grid>
+            <Grid item xs={12}><Typography variant="subtitle2" color="error" sx={{ fontWeight:700 }}>🇲🇳 Монгол мэдээлэл</Typography></Grid>
             {([['mn_name','Нэр *'],['mn_phone','Утасны дугаар *'],['mn_address','Хаяг']] as [string,string][]).map(([k,l])=>(
               <Grid item xs={12} sm={4} key={k}>
                 <TextField fullWidth size="small" label={l} value={(form as Record<string,string>)[k]||''} onChange={e=>setForm(p=>({...p,[k]:e.target.value}))}/>
               </Grid>
             ))}
-            <Grid item xs={12}><Typography variant="subtitle2" fontWeight={700}>📦 Ачааны мэдээлэл</Typography></Grid>
+            <Grid item xs={12}><Typography variant="subtitle2" sx={{ fontWeight:700 }}>📦 Ачааны мэдээлэл</Typography></Grid>
             <Grid item xs={12} sm={4}>
               <TextField select fullWidth size="small" label="Ачааны төрөл" value={form.cargo_type} onChange={e=>setForm(p=>({...p,cargo_type:e.target.value}))}>
                 {CARGO_TYPES.map(t=><MenuItem key={t} value={t}>{CARGO_TYPE_LABELS[t]}</MenuItem>)}
@@ -141,7 +141,7 @@ export default function ParcelsPage() {
                 <TextField fullWidth size="small" label={l} value={(form as Record<string,string>)[k]||''} onChange={e=>setForm(p=>({...p,[k]:e.target.value}))}/>
               </Grid>
             ))}
-            <Grid item xs={12}><Typography variant="subtitle2" fontWeight={700}>💳 Төлбөр</Typography></Grid>
+            <Grid item xs={12}><Typography variant="subtitle2" sx={{ fontWeight:700 }}>💳 Төлбөр</Typography></Grid>
             {([['paid_in_korea','Солонгосд төлсөн'],['total_fee','Нийт төлбөр'],['remaining_fee','Үлдэгдэл']] as [string,string][]).map(([k,l])=>(
               <Grid item xs={12} sm={4} key={k}>
                 <TextField fullWidth size="small" label={l} type="number" value={(form as Record<string,string>)[k]||''} onChange={e=>setForm(p=>({...p,[k]:e.target.value}))} InputProps={{ endAdornment:'₮' }}/>

@@ -28,7 +28,7 @@ export default function LoginPage() {
             <Avatar sx={{ bgcolor:'primary.main', mx:'auto', mb:2, width:60, height:60 }}>
               <LocalShipping sx={{ fontSize:32 }} />
             </Avatar>
-            <Typography variant="h5" fontWeight={800}>МонтоТрейд Админ</Typography>
+            <Typography variant="h5" sx={{ fontWeight:800 }}>МонтоТрейд Админ</Typography>
             <Typography color="text.secondary" variant="body2">Карго удирдлагын систем</Typography>
           </Box>
           {error && <Alert severity="error" sx={{ mb:2 }}>{error}</Alert>}

@@ -42,7 +42,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           <LocalShipping sx={{ fontSize: 20 }} />
         </Avatar>
         <Box>
-          <Typography fontWeight={800} fontSize={15} lineHeight={1.2}>МонтоТрейд</Typography>
+          <Typography fontSize={15} lineHeight={1.2} sx={{ fontWeight:800 }}>МонтоТрейд</Typography>
           <Typography variant="caption" color="text.secondary">Карго систем</Typography>
         </Box>
       </Box>
@@ -83,7 +83,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             {user?.name[0]}
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography fontSize={13} fontWeight={700} noWrap>{user?.name}</Typography>
+            <Typography fontSize={13} noWrap sx={{ fontWeight:700 }}>{user?.name}</Typography>
             <Chip label={user?.role} size="small" sx={{ fontSize: 10, height: 18 }} color={user?.role === 'admin' ? 'primary' : 'default'} />
           </Box>
           <Tooltip title="Гарах">
@@ -122,7 +122,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             <IconButton sx={{ display: { md: 'none' }, mr: 1 }} onClick={() => setMobileOpen(true)}>
               <Menu />
             </IconButton>
-            <Typography fontWeight={700} sx={{ flex: 1 }}>
+            <Typography sx={{ fontWeight:700, flex: 1 }}>
               {navItems.find(n => pathname.startsWith(n.path))?.label || 'Дашбоард'}
             </Typography>
             <Tooltip title={mode === 'dark' ? 'Цайвар' : 'Харанхуй'}>

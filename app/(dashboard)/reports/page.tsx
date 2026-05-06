@@ -46,7 +46,7 @@ export default function ReportsPage() {
   return (
     <Box>
       <Stack direction={{ xs:'column', sm:'row' }} justifyContent="space-between" alignItems={{ sm:'center' }} sx={{ mb:3 }} spacing={2}>
-        <Typography variant="h5" fontWeight={800}>Тайлан</Typography>
+        <Typography variant="h5" sx={{ fontWeight:800 }}>Тайлан</Typography>
         <Stack direction="row" spacing={1} alignItems="center">
           <TextField size="small" type="date" label="Эхлэх" value={from} onChange={e=>setFrom(e.target.value)} InputLabelProps={{ shrink:true }}/>
           <TextField size="small" type="date" label="Дуусах" value={to} onChange={e=>setTo(e.target.value)} InputLabelProps={{ shrink:true }}/>
@@ -59,7 +59,7 @@ export default function ReportsPage() {
             {STATS.map((s,i)=>(
               <Grid item xs={6} sm={4} md={2} key={i}>
                 <Card><CardContent sx={{ p:2, textAlign:'center' }}>
-                  <Typography fontSize={22} fontWeight={900} color={s.color}>{s.value}</Typography>
+                  <Typography fontSize={22} color={s.color} sx={{ fontWeight:900 }}>{s.value}</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ display:'block' }}>{s.label}</Typography>
                 </CardContent></Card>
               </Grid>
@@ -68,7 +68,7 @@ export default function ReportsPage() {
           <Grid container spacing={2.5} sx={{ mb:3 }}>
             <Grid item xs={12} lg={8}>
               <Card><CardContent>
-                <Typography fontWeight={700} sx={{ mb:2 }}>Сарын дүн</Typography>
+                <Typography sx={{ fontWeight:700, mb:2 }}>Сарын дүн</Typography>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={monthly}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)"/>
@@ -83,7 +83,7 @@ export default function ReportsPage() {
             </Grid>
             <Grid item xs={12} lg={4}>
               <Card sx={{ height:'100%' }}><CardContent>
-                <Typography fontWeight={700} sx={{ mb:2 }}>Статусаар</Typography>
+                <Typography sx={{ fontWeight:700, mb:2 }}>Статусаар</Typography>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart><Pie data={statusData} cx="50%" cy="50%" outerRadius={80} dataKey="value" paddingAngle={3}>
                     {statusData.map((e,i)=><Cell key={i} fill={e.color}/>)}
@@ -93,7 +93,7 @@ export default function ReportsPage() {
             </Grid>
             <Grid item xs={12}>
               <Card><CardContent>
-                <Typography fontWeight={700} sx={{ mb:2 }}>Ачааны төрлөөр</Typography>
+                <Typography sx={{ fontWeight:700, mb:2 }}>Ачааны төрлөөр</Typography>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={typeData} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" horizontal={false}/>
@@ -107,7 +107,7 @@ export default function ReportsPage() {
           {warehouse.length>0&&(
             <Card sx={{ border:'2px solid', borderColor:'warning.main' }}>
               <Box sx={{ p:2, bgcolor:'warning.light', borderBottom:'1px solid', borderColor:'warning.main', display:'flex', alignItems:'center', gap:1 }}>
-                <Typography fontWeight={700} color="warning.dark">🏭 Агуулахад аваагүй байгаа ачаанууд ({warehouse.length})</Typography>
+                <Typography color="warning.dark" sx={{ fontWeight:700 }}>🏭 Агуулахад аваагүй байгаа ачаанууд ({warehouse.length})</Typography>
               </Box>
               <Box sx={{ overflow:'auto' }}>
                 <Table size="small">
@@ -120,11 +120,11 @@ export default function ReportsPage() {
                       const days = r.arrived_at ? Math.floor((Date.now()-new Date(r.arrived_at).getTime())/86400000) : 0;
                       return (
                         <TableRow key={r.id} sx={{ bgcolor:days>7?'warning.light':undefined }}>
-                          <TableCell><Typography fontWeight={700} color="primary.main" variant="body2">{r.tracking_code}</Typography></TableCell>
+                          <TableCell><Typography color="primary.main" variant="body2" sx={{ fontWeight:700 }}>{r.tracking_code}</Typography></TableCell>
                           <TableCell>{r.mn_name}</TableCell><TableCell>{r.mn_phone}</TableCell>
                           <TableCell>{r.arrived_at?new Date(r.arrived_at).toLocaleDateString('mn-MN'):'-'}</TableCell>
                           <TableCell><Chip size="small" label={`${days} хоног`} color={days>7?'warning':'default'}/></TableCell>
-                          <TableCell><Typography fontWeight={700} color={r.current_storage_fee>0?'error.main':'text.primary'}>{Math.round(r.current_storage_fee).toLocaleString()}₮</Typography></TableCell>
+                          <TableCell><Typography sx={{ fontWeight:700 }} color={r.current_storage_fee>0?'error.main':'text.primary'}>{Math.round(r.current_storage_fee).toLocaleString()}₮</Typography></TableCell>
                         </TableRow>
                       );
                     })}
