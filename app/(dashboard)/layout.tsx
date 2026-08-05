@@ -15,18 +15,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (!user) {
     return (
-      <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', minHeight:'100vh' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', bgcolor: '#F8FAFC' }}>
         <CircularProgress />
       </Box>
     );
   }
 
-  return (
-    <Box sx={{ display:'flex', height:'100vh', overflow:'hidden', bgcolor:'background.default' }}>
-      <Sidebar />
-      <Box component="main" sx={{ flex:1, overflow:'auto', bgcolor:'grey.50' }}>
-        <Box sx={{ p:3 }}>{children}</Box>
-      </Box>
-    </Box>
-  );
+  return <Sidebar>{children}</Sidebar>;
 }

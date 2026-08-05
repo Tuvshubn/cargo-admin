@@ -4,6 +4,7 @@ import { CheckCircle, Phone, LocationOn } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import { api, STATUS_LABELS, STATUS_COLORS } from '@/lib/api';
 import PageHeader from '@/components/PageHeader';
+import EmptyState from '@/components/EmptyState';
 
 type Parcel = { id:string; tracking_code:string; status:string; mn_name:string; mn_phone:string; mn_address?:string; quantity:number; remaining_fee:number; batch_code?:string; collected_at?:string };
 

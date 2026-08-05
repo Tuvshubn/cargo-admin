@@ -21,49 +21,24 @@ export function AdminThemeProvider({ children }: { children: ReactNode }) {
     },
     typography: {
       fontFamily: '"Inter", "Noto Sans", sans-serif',
-      h4: { fontWeight: 700, letterSpacing: '-0.5px' },
-      h5: { fontWeight: 700 },
-      h6: { fontWeight: 600 },
-      subtitle1: { fontWeight: 600 },
-      subtitle2: { fontWeight: 600 },
-      body2: { color: '#64748B' },
+      button: { textTransform: 'none', fontWeight: 600 },
     },
     shape: { borderRadius: 10 },
-    shadows: [
-      'none',
-      '0 1px 2px rgba(0,0,0,0.05)',
-      '0 1px 3px rgba(0,0,0,0.08)',
-      '0 2px 6px rgba(0,0,0,0.08)',
-      '0 4px 12px rgba(0,0,0,0.08)',
-      '0 8px 24px rgba(0,0,0,0.08)',
-      ...Array(19).fill('none') as string[],
-    ] as any,
     components: {
       MuiButton: {
         styleOverrides: {
           root: { textTransform: 'none', fontWeight: 600, borderRadius: 8, boxShadow: 'none', '&:hover': { boxShadow: 'none' } },
-          contained: { background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' },
         },
         defaultProps: { disableElevation: true },
       },
       MuiCard: {
-        styleOverrides: {
-          root: { borderRadius: 12, border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' },
-        },
+        styleOverrides: { root: { borderRadius: 12, border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' } },
         defaultProps: { elevation: 0 },
       },
-      MuiPaper: {
-        defaultProps: { elevation: 0 },
-        styleOverrides: { root: { backgroundImage: 'none' } },
-      },
+      MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { backgroundImage: 'none' } } },
       MuiTextField: {
         styleOverrides: {
-          root: {
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 8,
-              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#2563EB' },
-            },
-          },
+          root: { '& .MuiOutlinedInput-root': { borderRadius: 8 } },
         },
       },
       MuiChip: { styleOverrides: { root: { fontWeight: 600, fontSize: '0.72rem' } } },
@@ -71,23 +46,27 @@ export function AdminThemeProvider({ children }: { children: ReactNode }) {
         styleOverrides: {
           root: {
             border: 'none',
-            '& .MuiDataGrid-columnHeaders': { background: '#F1F5F9', borderRadius: '8px 8px 0 0' },
+            '& .MuiDataGrid-columnHeaders': { background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' },
             '& .MuiDataGrid-columnHeader': { fontWeight: 700, fontSize: '0.78rem', color: '#475569' },
             '& .MuiDataGrid-row:hover': { background: '#F8FAFC' },
-            '& .MuiDataGrid-cell': { borderColor: '#F1F5F9' },
+            '& .MuiDataGrid-cell': { borderColor: '#F1F5F9', display: 'flex', alignItems: 'center' },
+            '& .MuiDataGrid-footerContainer': { borderTop: '2px solid #E2E8F0' },
           },
         },
       },
-      MuiTableCell: { styleOverrides: { head: { fontWeight: 700, background: '#F1F5F9', color: '#475569', fontSize: '0.78rem' } } },
       MuiDialog: { styleOverrides: { paper: { borderRadius: 16, border: '1px solid #E2E8F0' } } },
-      MuiDialogTitle: { styleOverrides: { root: { fontWeight: 700, fontSize: '1.1rem' } } },
+      MuiDialogTitle: { styleOverrides: { root: { fontWeight: 800, fontSize: '1rem', pb: 0 } } },
+      MuiTableCell: {
+        styleOverrides: {
+          head: { fontWeight: 700, background: '#F8FAFC', color: '#475569', fontSize: '0.78rem', padding: '10px 16px' },
+          body: { fontSize: '0.875rem', padding: '10px 16px' },
+        },
+      },
     },
   }), []);
 
-  const ctx = useMemo(() => ({ toggleMode: ()=>{}, mode: 'light' as const }), []);
-
   return (
-    <Ctx.Provider value={ctx}>
+    <Ctx.Provider value={{ toggleMode: ()=>{}, mode: 'light' }}>
       <ThemeProvider theme={theme}><CssBaseline />{children}</ThemeProvider>
     </Ctx.Provider>
   );

@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { useState, useEffect } from 'react';
 import { api, STATUS_LABELS, STATUS_COLORS, CARGO_TYPE_LABELS } from '@/lib/api';
 import PageHeader from '@/components/PageHeader';
+import EmptyState from '@/components/EmptyState';
 
 type SummaryData = Record<string, Record<string, string>>;
 type ChartRow = { name: string; value: number; color: string };

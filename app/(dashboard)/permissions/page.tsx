@@ -3,6 +3,7 @@ import { Box, Card, CardContent, Typography, Stack, Switch, Alert, CircularProgr
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import PageHeader from '@/components/PageHeader';
+import EmptyState from '@/components/EmptyState';
 
 const ALL_PERMISSIONS: Record<string, string[]> = {
   'Хэрэглэгч': ['users.view','users.create','users.edit','users.delete'],

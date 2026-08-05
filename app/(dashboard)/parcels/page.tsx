@@ -5,6 +5,7 @@ import { Add, Edit, Delete, FileDownload, TrackChanges } from '@mui/icons-materi
 import { useState, useEffect, useCallback } from 'react';
 import { api, STATUS_LABELS, STATUS_COLORS, CARGO_TYPE_LABELS, STATUSES } from '@/lib/api';
 import PageHeader from '@/components/PageHeader';
+import EmptyState from '@/components/EmptyState';
 import { useAuth } from '@/context/AuthContext';
 
 const CARGO_TYPES = ['express','normal','online','vehicle','oversized','wholesale'];
