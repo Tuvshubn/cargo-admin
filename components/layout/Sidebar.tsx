@@ -1,12 +1,6 @@
 'use client';
-import {
-  Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
-  Typography, Avatar, Tooltip, IconButton, Divider, Drawer
-} from '@mui/material';
-import {
-  Dashboard, People, Inventory, AllInbox, Assessment,
-  LocalShipping, Security, DeliveryDining, Logout, Menu as MenuIcon
-} from '@mui/icons-material';
+import { Box, Drawer, IconButton, Avatar, Tooltip, Typography } from '@mui/material';
+import { Dashboard, People, Inventory, AllInbox, Assessment, LocalShipping, Security, DeliveryDining, Logout, Menu as MenuIcon } from '@mui/icons-material';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -15,117 +9,112 @@ import Link from 'next/link';
 const W = 240;
 
 const NAV = [
-  { label: 'Дашбоард',        icon: <Dashboard fontSize="small"/>,      path: '/dashboard',   roles: ['admin','driver','delivery'] },
-  { label: 'Падан / Ачаанууд', icon: <Inventory fontSize="small"/>,      path: '/parcels',     roles: ['admin','driver'] },
-  { label: 'Карго багцлах',   icon: <AllInbox fontSize="small"/>,       path: '/batches',     roles: ['admin'] },
-  { label: 'Хүргэлт',         icon: <DeliveryDining fontSize="small"/>,  path: '/deliveries',  roles: ['admin','delivery'] },
-  { label: 'Тайлан',          icon: <Assessment fontSize="small"/>,     path: '/reports',     roles: ['admin'] },
-  { label: 'Хэрэглэгчид',     icon: <People fontSize="small"/>,         path: '/users',       roles: ['admin'] },
-  { label: 'Эрхийн тохиргоо', icon: <Security fontSize="small"/>,       path: '/permissions', roles: ['admin'] },
+  { label: 'Дашбоард',        icon: Dashboard,      path: '/dashboard',   roles: ['admin','driver','delivery'] },
+  { label: 'Падан / Ачаанууд', icon: Inventory,      path: '/parcels',     roles: ['admin','driver'] },
+  { label: 'Карго багцлах',   icon: AllInbox,       path: '/batches',     roles: ['admin'] },
+  { label: 'Хүргэлт',         icon: DeliveryDining, path: '/deliveries',  roles: ['admin','delivery'] },
+  { label: 'Тайлан',          icon: Assessment,     path: '/reports',     roles: ['admin'] },
+  { label: 'Хэрэглэгчид',     icon: People,         path: '/users',       roles: ['admin'] },
+  { label: 'Эрхийн тохиргоо', icon: Security,       path: '/permissions', roles: ['admin'] },
 ];
 
 const ROLE_COLOR: Record<string,string> = { admin:'#3B82F6', driver:'#F59E0B', delivery:'#10B981' };
 const ROLE_LABEL: Record<string,string> = { admin:'Админ', driver:'Жолооч', delivery:'Хүргэгч' };
 
-function NavContent({ onNav }: { onNav?: ()=>void }) {
+function NavList({ onNav }: { onNav?: ()=>void }) {
   const { user, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
-  const nav = NAV.filter(n => n.roles.includes(user?.role || ''));
+  const nav = NAV.filter(n => n.roles.includes(user?.role||''));
   const rc = ROLE_COLOR[user?.role||'admin'];
 
   return (
-    <Box sx={{
+    <div style={{
       width: W, height: '100vh', display: 'flex', flexDirection: 'column',
-      bgcolor: '#0F172A', overflow: 'hidden',
+      background: '#0F172A', overflow: 'hidden', fontFamily: 'Inter, Noto Sans, sans-serif',
     }}>
       {/* Logo */}
-      <Box sx={{ px: 2.5, py: 2, display: 'flex', alignItems: 'center', gap: 1.5, minHeight: 60, flexShrink: 0 }}>
-        <Box sx={{ width: 32, height: 32, borderRadius: 1.5, bgcolor: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <LocalShipping sx={{ color: '#fff', fontSize: 18 }} />
-        </Box>
-        <Box>
-          <Typography sx={{ color: '#F1F5F9', fontWeight: 800, fontSize: '0.88rem', lineHeight: 1.2 }}>МонтоТрейд</Typography>
-          <Typography sx={{ color: '#475569', fontSize: '0.62rem', letterSpacing: 0.3 }}>Cargo Admin</Typography>
-        </Box>
-      </Box>
-
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)', flexShrink: 0 }} />
+      <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 12, borderBottom: '1px solid rgba(255,255,255,0.07)', minHeight: 60 }}>
+        <div style={{ width: 32, height: 32, borderRadius: 8, background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <LocalShipping style={{ color: '#fff', fontSize: 18 }} />
+        </div>
+        <div>
+          <div style={{ color: '#F1F5F9', fontWeight: 800, fontSize: 14, lineHeight: '18px' }}>МонтоТрейд</div>
+          <div style={{ color: '#475569', fontSize: 11 }}>Cargo Admin</div>
+        </div>
+      </div>
 
       {/* Nav */}
-      <Box sx={{ flex: 1, overflowY: 'auto', px: 1.5, pt: 2, pb: 1 }}>
-        <Typography sx={{ color: '#334155', fontSize: '0.58rem', fontWeight: 700, letterSpacing: 2, px: 1, mb: 1.5, textTransform: 'uppercase' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 12px 8px' }}>
+        <div style={{ color: '#334155', fontSize: 10, fontWeight: 700, letterSpacing: 2, padding: '0 8px 12px', textTransform: 'uppercase' }}>
           Үндсэн цэс
-        </Typography>
-        <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-          {nav.map(item => {
-            const active = pathname === item.path || pathname.startsWith(item.path + '/');
-            return (
-              <ListItem key={item.path} disablePadding>
-                <ListItemButton
-                  component={Link} href={item.path}
-                  onClick={onNav}
-                  sx={{
-                    borderRadius: 1.5, px: 1.5, py: 0.85, minHeight: 38,
-                    bgcolor: active ? 'rgba(59,130,246,0.18)' : 'transparent',
-                    '&:hover': { bgcolor: active ? 'rgba(59,130,246,0.22)' : 'rgba(255,255,255,0.05)' },
-                    transition: 'background 0.15s',
-                  }}
-                >
-                  <ListItemIcon sx={{ minWidth: 30, color: active ? '#60A5FA' : '#4B5563' }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.label}
-                    primaryTypographyProps={{
-                      fontSize: '0.85rem',
-                      fontWeight: active ? 700 : 400,
-                      color: active ? '#E2E8F0' : '#6B7280',
-                    }}
-                  />
-                  {active && (
-                    <Box sx={{ width: 3, height: 18, borderRadius: 99, bgcolor: '#3B82F6', flexShrink: 0, ml: 0.5 }} />
-                  )}
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
-        </List>
-      </Box>
-
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)', flexShrink: 0 }} />
+        </div>
+        {nav.map(item => {
+          const active = pathname === item.path || pathname.startsWith(item.path + '/');
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.path}
+              href={item.path}
+              onClick={onNav}
+              style={{ textDecoration: 'none', display: 'block', marginBottom: 2 }}
+            >
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '9px 12px', borderRadius: 10,
+                background: active ? 'rgba(59,130,246,0.18)' : 'transparent',
+                cursor: 'pointer', transition: 'background 0.15s',
+              }}
+              onMouseEnter={e => { if (!active) (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.06)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = active ? 'rgba(59,130,246,0.18)' : 'transparent'; }}
+              >
+                <Icon style={{ fontSize: 18, color: active ? '#60A5FA' : '#4B5563', flexShrink: 0 }} />
+                <span style={{ fontSize: 14, fontWeight: active ? 600 : 400, color: active ? '#E2E8F0' : '#6B7280', flex: 1 }}>
+                  {item.label}
+                </span>
+                {active && <div style={{ width: 3, height: 18, borderRadius: 99, background: '#3B82F6', flexShrink: 0 }} />}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
 
       {/* User */}
-      <Box sx={{ p: 1.5, flexShrink: 0 }}>
-        <Box sx={{
-          display: 'flex', alignItems: 'center', gap: 1.5,
-          px: 1.5, py: 1, borderRadius: 1.5,
-          bgcolor: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.06)',
+      <div style={{ padding: '8px 12px 16px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          padding: '8px 10px', borderRadius: 10,
+          background: 'rgba(255,255,255,0.04)',
+          border: '1px solid rgba(255,255,255,0.07)',
         }}>
-          <Avatar sx={{ width: 30, height: 30, bgcolor: `${rc}22`, color: rc, fontSize: '0.75rem', fontWeight: 800, border: `1.5px solid ${rc}55`, flexShrink: 0 }}>
+          <div style={{
+            width: 30, height: 30, borderRadius: '50%', flexShrink: 0,
+            background: `${rc}22`, border: `1.5px solid ${rc}55`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: rc, fontSize: 13, fontWeight: 800,
+          }}>
             {user?.name?.[0]?.toUpperCase()}
-          </Avatar>
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography sx={{ color: '#E2E8F0', fontSize: '0.8rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ color: '#E2E8F0', fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user?.name}
-            </Typography>
-            <Typography sx={{ color: rc, fontSize: '0.62rem', fontWeight: 700 }}>
+            </div>
+            <div style={{ color: rc, fontSize: 11, fontWeight: 700 }}>
               {ROLE_LABEL[user?.role||''] || user?.role}
-            </Typography>
-          </Box>
-          <Tooltip title="Гарах">
-            <IconButton
-              size="small"
-              onClick={() => { logout(); router.push('/login'); }}
-              sx={{ color: '#4B5563', '&:hover': { color: '#EF4444', bgcolor: 'rgba(239,68,68,0.1)' }, p: 0.5 }}
-            >
-              <Logout sx={{ fontSize: 15 }} />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Box>
-    </Box>
+            </div>
+          </div>
+          <button
+            onClick={() => { logout(); router.push('/login'); }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, borderRadius: 6, display: 'flex', alignItems: 'center', color: '#4B5563' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#EF4444'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(239,68,68,0.1)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#4B5563'; (e.currentTarget as HTMLButtonElement).style.background = 'none'; }}
+            title="Гарах"
+          >
+            <Logout style={{ fontSize: 16 }} />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -134,12 +123,9 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
   return (
     <Box sx={{ display: 'flex', height: '100vh', bgcolor: '#F8FAFC' }}>
-      {/* Desktop sidebar — CSS display, no JS detection */}
-      <Box sx={{
-        width: W, flexShrink: 0,
-        display: { xs: 'none', lg: 'block' },
-      }}>
-        <NavContent />
+      {/* Desktop */}
+      <Box sx={{ width: W, flexShrink: 0, display: { xs: 'none', lg: 'block' } }}>
+        <NavList />
       </Box>
 
       {/* Mobile drawer */}
@@ -147,30 +133,27 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         open={open}
         onClose={() => setOpen(false)}
         sx={{ display: { lg: 'none' } }}
-        PaperProps={{ sx: { bgcolor: 'transparent', boxShadow: 'none' } }}
+        PaperProps={{ sx: { boxShadow: 'none' } }}
       >
-        <NavContent onNav={() => setOpen(false)} />
+        <NavList onNav={() => setOpen(false)} />
       </Drawer>
 
-      {/* Main content */}
+      {/* Main */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
         {/* Mobile topbar */}
         <Box sx={{
-          display: { xs: 'flex', lg: 'none' },
-          px: 2, py: 1.5, bgcolor: '#fff',
-          borderBottom: '1px solid #E2E8F0',
-          alignItems: 'center', gap: 1.5, minHeight: 56, flexShrink: 0,
+          display: { xs: 'flex', lg: 'none' }, alignItems: 'center', gap: 1.5,
+          px: 2, minHeight: 56, bgcolor: '#fff', borderBottom: '1px solid #E2E8F0', flexShrink: 0,
         }}>
-          <IconButton onClick={() => setOpen(true)} size="small" sx={{ color: '#374151' }}>
+          <IconButton size="small" onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
           <Box sx={{ width: 26, height: 26, borderRadius: 1, bgcolor: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <LocalShipping sx={{ color: '#fff', fontSize: 15 }} />
           </Box>
-          <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>МонтоТрейд</Typography>
+          <Typography sx={{ fontWeight: 800, fontSize: '0.9rem' }}>МонтоТрейд</Typography>
         </Box>
 
-        {/* Page content */}
         <Box sx={{ flex: 1, overflowY: 'auto', p: { xs: 2, md: 3 } }}>
           {children}
         </Box>
