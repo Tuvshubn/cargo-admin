@@ -13,13 +13,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!user) router.replace('/login');
   }, [user, router]);
 
-  if (!user) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', bgcolor: '#F8FAFC' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  if (!user) return (
+    <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', minHeight:'100vh' }}>
+      <CircularProgress />
+    </Box>
+  );
 
   return <Sidebar>{children}</Sidebar>;
 }
