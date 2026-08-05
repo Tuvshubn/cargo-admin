@@ -2,6 +2,7 @@
 import { Box, Card, CardContent, Typography, Stack, Switch, Alert, CircularProgress, Grid, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
+import PageHeader from '@/components/PageHeader';
 
 const ALL_PERMISSIONS: Record<string, string[]> = {
   'Хэрэглэгч': ['users.view','users.create','users.edit','users.delete'],

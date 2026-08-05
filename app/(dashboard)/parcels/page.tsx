@@ -4,6 +4,7 @@ import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { Add, Edit, Delete, FileDownload, TrackChanges } from '@mui/icons-material';
 import { useState, useEffect, useCallback } from 'react';
 import { api, STATUS_LABELS, STATUS_COLORS, CARGO_TYPE_LABELS, STATUSES } from '@/lib/api';
+import PageHeader from '@/components/PageHeader';
 import { useAuth } from '@/context/AuthContext';
 
 const CARGO_TYPES = ['express','normal','online','vehicle','oversized','wholesale'];
@@ -86,13 +87,16 @@ export default function ParcelsPage() {
 
   return (
     <Box>
-      <Stack direction={{ xs:'column', sm:'row' }} justifyContent="space-between" alignItems={{ sm:'center' }} sx={{ mb:3 }} spacing={2}>
-        <Typography variant="h5" sx={{ fontWeight:800 }}>Падан / Ачаанууд</Typography>
-        <Stack direction="row" spacing={1}>
-          {user?.role==='admin'&&<Button variant="outlined" startIcon={exporting?<CircularProgress size={16}/>:<FileDownload/>} onClick={exportXlsx} disabled={exporting}>Excel</Button>}
-          <Button variant="contained" startIcon={<Add/>} onClick={()=>{setForm(emptyForm);setEditId(null);setDialog(true);}}>Падан нэмэх</Button>
-        </Stack>
-      </Stack>
+      <PageHeader
+        title="Падан / Ачаанууд"
+        subtitle="Карго ачааны бүртгэл, хяналт"
+        action={
+          <Stack direction="row" spacing={1}>
+            {user?.role==='admin'&&<Button variant="outlined" startIcon={exporting?<CircularProgress size={16}/>:<FileDownload/>} onClick={exportXlsx} disabled={exporting} sx={{ borderColor:'#E2E8F0', color:'#475569' }}>Excel</Button>}
+            <Button variant="contained" startIcon={<Add/>} onClick={()=>{setForm(emptyForm);setEditId(null);setDialog(true);}}>Падан нэмэх</Button>
+          </Stack>
+        }
+      />
       <Card sx={{ mb:2 }}>
         <Box sx={{ p:2 }}>
           <Stack direction={{ xs:'column', sm:'row' }} spacing={2}>

@@ -3,6 +3,7 @@ import { Box, Grid, Card, CardContent, Typography, Stack, TextField, Button, Cir
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { useState, useEffect } from 'react';
 import { api, STATUS_LABELS, STATUS_COLORS, CARGO_TYPE_LABELS } from '@/lib/api';
+import PageHeader from '@/components/PageHeader';
 
 type SummaryData = Record<string, Record<string, string>>;
 type ChartRow = { name: string; value: number; color: string };
